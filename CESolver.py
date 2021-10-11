@@ -1,16 +1,16 @@
 import sympy as sp
 import variables
 
-def predkosc_poczatkowa(n):
-    return lambda Vo: n
+def PredkoscPoczatkowa(n):
+    return lambda Predkosc: n
 
-def WyliczanieCzasu(Vo,Przyspieszenie,DlugoscRuryPietra) :
-    t=sp.Symbol('t')
-    f = Vo*t+0.5*Przyspieszenie*(t**2)-DlugoscRuryPietra
-    t=sp.solve(f)
+def WyliczanieCzasu(Predkosc,Przyspieszenie,DlugoscRuryPietra) :
+    Czas=sp.Symbol('Czas')
+    f = Predkosc*Czas+0.5*Przyspieszenie*(Czas**2)-DlugoscRuryPietra
+    Czas=sp.solve(f)
 
-    for i in t:
-        if i>0:
-            time=i
-            print('Czas = ' + str(time))
-    return time
+    for Iteracja in Czas:
+        if Iteracja>0:
+            Time=Iteracja
+            print('Czas = ' + str(Time))
+    return Time

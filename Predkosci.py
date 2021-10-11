@@ -1,5 +1,5 @@
 from sympy.core.symbol import var
-from CESolver import WyliczanieCzasu, predkosc_poczatkowa
+from CESolver import WyliczanieCzasu, PredkoscPoczatkowa
 import variables
 
 
