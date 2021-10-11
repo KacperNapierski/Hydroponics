@@ -1,27 +1,27 @@
 from sympy.core.symbol import var
-from CESolver import czas, predkosc_poczatkowa
+from CESolver import WyliczanieCzasu, predkosc_poczatkowa
 import variables
 
 
-#x= lambda hw,sw: (10**-3)/(60*hw*sw)
-y=variables.Pwy*variables.x(variables.hw,variables.sw)
-print('predkosc wejsciowej wody =' + str(y))
+#ZmiennaKonwertujaca= lambda WysokoscWody,SzerokoscWody: (10**-3)/(60*WysokoscWody*SzerokoscWody)
+PredkoscWejsciowa=variables.PrzeplywWejsciowy*variables.ZmiennaKonwertujaca(variables.WysokoscWody,variables.SzerokoscWody)
+print('predkosc wejsciowej wody =' + str(PredkoscWejsciowa))
 
 #górna warstwa
-t = czas(variables.x(variables.hw,variables.sw)*variables.Pwy, variables.a, variables.l)
-Vk=variables.x(variables.hw,variables.sw)*variables.Pwy + variables.a*float(t)
-print('predkosc na koncu gory ' + str(Vk))
+CzasPierwszegoEtapu = WyliczanieCzasu(variables.ZmiennaKonwertujaca(variables.WysokoscWody,variables.SzerokoscWody)*variables.PrzeplywWejsciowy, variables.Przyspieszenie, variables.DlugoscRuryPietra)
+PredkoscPierwszegoEtapu=variables.ZmiennaKonwertujaca(variables.WysokoscWody,variables.SzerokoscWody)*variables.PrzeplywWejsciowy + variables.Przyspieszenie*float(CzasPierwszegoEtapu)
+print('predkosc na koncu gory ' + str(PredkoscPierwszegoEtapu))
 
 
 #pion
-t2 = czas(Vk, variables.g , variables.s)
-Vk2=Vk + variables.g*t2
-print('predkosc na koncu rury czesci '+ str(Vk2))
+CzasDrugiegoEtapu = WyliczanieCzasu(PredkoscPierwszegoEtapu, variables.StałaGrawitacyjna , variables.DlugoscRuryPionowej)
+PredkoscDrugiegoEtapu=PredkoscPierwszegoEtapu + variables.StałaGrawitacyjna*CzasDrugiegoEtapu
+print('predkosc na koncu rury czesci '+ str(PredkoscDrugiegoEtapu))
 
 #dol
-t3= czas (Vk2, variables.a, variables.l)
-Vk3=Vk2 + variables.a*t3
-print('predkosc na koncu dolnej czesci ' + str(Vk3))
+CzasTrzeciegoEtapu= WyliczanieCzasu (PredkoscDrugiegoEtapu, variables.Przyspieszenie, variables.DlugoscRuryPietra)
+PredkoscTrzeciegoEtapu=PredkoscDrugiegoEtapu + variables.Przyspieszenie*CzasTrzeciegoEtapu
+print('predkosc na koncu dolnej czesci ' + str(PredkoscTrzeciegoEtapu))
 
 #konwersja na l/min
-print('Pwe = ' + str(Vk3/variables.x(variables.hw,variables.sw)))
+print('Przepływ wyjściowy = ' + str(PredkoscTrzeciegoEtapu/variables.ZmiennaKonwertujaca(variables.WysokoscWody,variables.SzerokoscWody)))

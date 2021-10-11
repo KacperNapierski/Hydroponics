@@ -1,16 +1,16 @@
 from math import sin
 
-hw =0.01
-sw =0.11
-Pwy =2.0
-g = 9.81
+WysokoscWody =0.01     # m
+SzerokoscWody =0.11    # m
+PrzeplywWejsciowy =2.0 # L/min
+StałaGrawitacyjna = 9.81
 sinA = sin(1.15)
-a=g*sinA
-l = 4.0
-#x= lambda hw,sw: (10^-3)/(60*hw*sw)
-s =0.5
+Przyspieszenie=StałaGrawitacyjna*sinA #m/s^2
+DlugoscRuryPietra = 4.0 #m
+#ZmiennaKonwertujaca= lambda WysokoscWody,SzerokoscWody: (10^-3)/(60*WysokoscWody*SzerokoscWody)
+DlugoscRuryPionowej =0.5 #m
 
 #konwerter l/min->m/s
-def x(hw,sw):
-    x=(10**(-3))/(60*hw*sw)
-    return float(x)
+def ZmiennaKonwertujaca(WysokoscWody,SzerokoscWody):
+    ZmiennaKonwertujaca=(10**(-3))/(60*WysokoscWody*SzerokoscWody)
+    return float(ZmiennaKonwertujaca)
